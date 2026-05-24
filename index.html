@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --bg:#080808;--surface:#0f0f0f;--surface2:#161616;
+    --accent:#7B2FBE;--accent-glow:#9B4DDD;--accent-soft:#C084FC;
+    --text:#f0f0f0;--muted:#666;--border:#1e1e1e;
+  }
+  body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;min-height:100vh;overflow-x:hidden;}
+  .noise{position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.4;}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(8,8,8,0.95);backdrop-filter:blur(10px);z-index:100;}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:4px;color:var(--accent-soft);text-shadow:0 0 18px #7B2FBE99,0 0 40px #7B2FBE44;}
+  .nav-links{display:flex;gap:2rem;}
+  .nav-links a{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;cursor:pointer;}
+  .nav-links a:hover{color:var(--accent-soft);}
+  .hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:4rem 2rem 2rem;position:relative;overflow:hidden;}
+  .hero-eyebrow{font-size:0.6rem;letter-spacing:5px;text-transform:uppercase;color:var(--accent-soft);margin-bottom:1.5rem;}
+  .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,15vw,11rem);line-height:0.9;letter-spacing:2px;color:var(--text);}
+  .hero-title span{color:var(--accent-soft);text-shadow:0 0 24px #7B2FBEcc,0 0 60px #7B2FBE66,0 0 100px #7B2FBE33;}
+  .hero-sub{font-size:0.7rem;letter-spacing:2px;color:var(--muted);margin-top:2rem;max-width:380px;line-height:1.8;}
+  .hero-cta{margin-top:2.5rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;}
+  .btn-primary{background:var(--accent);color:#fff;font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;padding:0.8rem 1.8rem;border:none;cursor:pointer;font-weight:700;transition:all 0.2s;box-shadow:0 0 20px #7B2FBE66;}
+  .btn-primary:hover{background:var(--accent-glow);box-shadow:0 0 30px #9B4DDD99;}
+  .btn-ghost{background:transparent;color:var(--text);font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;padding:0.8rem 1.8rem;border:1px solid var(--border);cursor:pointer;transition:all 0.2s;}
+  .btn-ghost:hover{border-color:var(--accent-soft);color:var(--accent-soft);}
+  .hero-deco{position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:22vw;color:transparent;-webkit-text-stroke:1px #1e0a2e;pointer-events:none;letter-spacing:-5px;white-space:nowrap;user-select:none;}
+  .scroll-line{position:absolute;bottom:2rem;left:2rem;display:flex;align-items:center;gap:0.8rem;font-size:0.55rem;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+  .scroll-line::before{content:'';display:block;width:40px;height:1px;background:var(--muted);}
+  .marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:0.8rem 0;overflow:hidden;background:var(--surface);}
+  .marquee-track{display:flex;gap:3rem;white-space:nowrap;animation:marquee 18s linear infinite;}
+  .marquee-track span{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:4px;color:var(--muted);flex-shrink:0;}
+  .marquee-track span.accent{color:var(--accent-soft);text-shadow:0 0 10px #7B2FBE88;}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .section{padding:5rem 2rem;}
+  .section-label{font-size:0.55rem;letter-spacing:5px;text-transform:uppercase;color:var(--accent-soft);margin-bottom:3rem;display:flex;align-items:center;gap:1rem;}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border);max-width:60px;}
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;border:1px solid var(--border);}
+  .service-card{padding:2rem 1.5rem;border-right:1px solid var(--border);background:var(--surface);transition:background 0.3s;position:relative;overflow:hidden;}
+  .service-card:hover{background:var(--surface2);}
+  .service-card:hover .service-num{color:var(--accent-soft);text-shadow:0 0 20px #7B2FBEaa;}
+  .service-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--border);line-height:1;margin-bottom:1rem;transition:color 0.3s,text-shadow 0.3s;}
+  .service-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;margin-bottom:0.8rem;}
+  .service-desc{font-size:0.6rem;color:var(--muted);line-height:2;letter-spacing:1px;}
+  .service-price{margin-top:1.5rem;font-size:0.6rem;letter-spacing:2px;color:var(--accent-soft);text-transform:uppercase;}
+  .stats-bar{display:flex;flex-wrap:wrap;border:1px solid var(--border);background:var(--surface);}
+  .stat{flex:1;min-width:140px;padding:2rem;border-right:1px solid var(--border);text-align:center;}
+  .stat:last-child{border-right:none;}
+  .stat-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--accent-soft);text-shadow:0 0 20px #7B2FBE88;line-height:1;}
+  .stat-label{font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:0.5rem;}
+  .contact-section{padding:5rem 2rem;border-top:1px solid var(--border);display:flex;flex-direction:column;align-items:flex-start;gap:2rem;}
+  .contact-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,10vw,7rem);line-height:0.9;color:var(--text);}
+  .contact-big span{color:var(--accent-soft);text-shadow:0 0 30px #7B2FBEcc,0 0 70px #7B2FBE55;}
+  .contact-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+  .contact-link{font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:2px;transition:all 0.2s;cursor:pointer;}
+  .contact-link:hover{color:var(--accent-soft);border-color:var(--accent-soft);}
+  footer{padding:1.5rem 2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+  footer span{font-size:0.55rem;letter-spacing:2px;color:var(--muted);}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .hero-eyebrow,.hero-title,.hero-sub,.hero-cta{animation:fadeUp 0.6s ease both;}
+  .hero-eyebrow{animation-delay:0.1s}.hero-title{animation-delay:0.2s}.hero-sub{animation-delay:0.3s}.hero-cta{animation-delay:0.4s}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<nav>
+  <div class="logo">BLESSXEN</div>
+  <div class="nav-links"><a>Work</a><a>Services</a><a>Contact</a></div>
+</nav>
+<section class="hero">
+  <div class="hero-eyebrow">// Video Editor — After Effects — NYC</div>
+  <h1 class="hero-title">BLESS<span>X</span><br>EN.</h1>
+  <p class="hero-sub">Underground edits. Dark aesthetic. Built for artists, rappers & brands that don't do generic.</p>
+  <div class="hero-cta">
+    <button class="btn-primary">Get a quote</button>
+    <button class="btn-ghost">View work</button>
+  </div>
+  <div class="hero-deco">BX</div>
+  <div class="scroll-line">Scroll</div>
+</section>
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>After Effects</span><span class="accent">✦</span>
+    <span>Short-Form Video</span><span class="accent">✦</span>
+    <span>Underground Edits</span><span class="accent">✦</span>
+    <span>TikTok & Reels</span><span class="accent">✦</span>
+    <span>Motion Graphics</span><span class="accent">✦</span>
+    <span>Intros & Outros</span><span class="accent">✦</span>
+    <span>After Effects</span><span class="accent">✦</span>
+    <span>Short-Form Video</span><span class="accent">✦</span>
+    <span>Underground Edits</span><span class="accent">✦</span>
+    <span>TikTok & Reels</span><span class="accent">✦</span>
+    <span>Motion Graphics</span><span class="accent">✦</span>
+    <span>Intros & Outros</span><span class="accent">✦</span>
+  </div>
+</div>
+<section class="section">
+  <div class="section-label">Services</div>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-num">01</div><div class="service-title">Short-Form Edit</div><div class="service-desc">TikTok, Reels & Shorts. Cut, colored, and ready to post. Your raw footage → viral-ready clip.</div><div class="service-price">Starting at $25</div></div>
+    <div class="service-card"><div class="service-num">02</div><div class="service-title">Intro / Outro</div><div class="service-desc">Custom After Effects animated intro or outro. Dark, aesthetic, and built around your brand.</div><div class="service-price">Starting at $40</div></div>
+    <div class="service-card"><div class="service-num">03</div><div class="service-title">Music Video Edit</div><div class="service-desc">Underground artists only. Lyrics, cuts, effects — edited to match the energy of your track.</div><div class="service-price">Starting at $60</div></div>
+    <div class="service-card"><div class="service-num">04</div><div class="service-title">Content Pack</div><div class="service-desc">5 edited clips per week. Ideal for artists & brands posting consistently across platforms.</div><div class="service-price">Starting at $100/mo</div></div>
+  </div>
+</section>
+<section class="section" style="padding-top:0">
+  <div class="section-label">By the numbers</div>
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-num">AE</div><div class="stat-label">Adobe After Effects</div></div>
+    <div class="stat"><div class="stat-num">NY</div><div class="stat-label">New York</div></div>
+    <div class="stat"><div class="stat-num">24H</div><div class="stat-label">Turnaround Available</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Underground Aesthetic</div></div>
+  </div>
+</section>
+<section class="contact-section">
+  <div class="section-label">Book an edit</div>
+  <div class="contact-big">LET'S<br>MAKE<br><span>SOMETHING.</span></div>
+  <div class="contact-links">
+    <a class="contact-link" href="https://www.tiktok.com/@blessxen" target="_blank">@blessxen on TikTok</a>
+    <a class="contact-link" href="https://www.instagram.com/blessxen" target="_blank">@blessxen on Instagram</a>
+  </div>
+  <button class="btn-primary">Book an edit</button>
+</section>
+<footer>
+  <span>© 2026 BLESSXEN — All Rights Reserved</span>
+  <span>New York — Available Worldwide</span>
+</footer>
+</body>
+</html>
