@@ -34,21 +34,10 @@
   .video-card:hover .card-glow{opacity:1;}
   .card-glow{position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent-soft);box-shadow:0 0 20px #7B2FBEcc;opacity:0;transition:opacity 0.3s;}
   .video-wrapper{position:relative;width:100%;padding-bottom:56.25%;background:#000;overflow:hidden;}
-  .video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
-  .video-placeholder{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--surface2);cursor:pointer;transition:background 0.2s;}
-  .video-placeholder:hover{background:#1a0a2e;}
-  .play-icon{width:48px;height:48px;border:2px solid var(--accent-soft);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:0.8rem;}
-  .play-icon::after{content:'';border-left:16px solid var(--accent-soft);border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px;}
-  .placeholder-label{font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);}
+  .video-wrapper video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;}
   .card-info{padding:1rem 1.2rem;border-top:1px solid var(--border);}
   .card-platform{font-size:0.5rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent-soft);margin-bottom:0.4rem;}
   .card-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;color:var(--text);}
-  .card-link{display:inline-block;margin-top:0.6rem;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:1px;transition:all 0.2s;}
-  .card-link:hover{color:var(--accent-soft);border-color:var(--accent-soft);}
-  .add-section{padding:2rem;border:1px dashed var(--border);text-align:center;margin:0 2rem 4rem;}
-  .add-label{font-size:0.55rem;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;}
-  .add-sub{font-size:0.55rem;color:#444;letter-spacing:1px;line-height:2;}
-  .add-sub code{color:var(--accent-soft);font-family:'Space Mono',monospace;}
   footer{padding:1.5rem 2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
   footer span{font-size:0.55rem;letter-spacing:2px;color:var(--muted);}
   @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -96,59 +85,44 @@
     <div class="video-card">
       <div class="card-glow"></div>
       <div class="video-wrapper">
-        <div class="video-placeholder">
-          <div class="play-icon"></div>
-          <div class="placeholder-label">Add your video here</div>
-        </div>
+        <video controls>
+          <source src="Osama V2.mp4" type="video/mp4">
+        </video>
       </div>
       <div class="card-info">
-        <div class="card-platform">TikTok / YouTube / IG</div>
-        <div class="card-title">Edit Title Here</div>
-        <a class="card-link" href="#">Watch on platform →</a>
+        <div class="card-platform">Edit</div>
+        <div class="card-title">Osama V2</div>
       </div>
     </div>
 
     <div class="video-card">
       <div class="card-glow"></div>
       <div class="video-wrapper">
-        <div class="video-placeholder">
-          <div class="play-icon"></div>
-          <div class="placeholder-label">Add your video here</div>
-        </div>
+        <video controls>
+          <source src="Destroy Lonley La Final Part.mp4" type="video/mp4">
+        </video>
       </div>
       <div class="card-info">
-        <div class="card-platform">TikTok / YouTube / IG</div>
-        <div class="card-title">Edit Title Here</div>
-        <a class="card-link" href="#">Watch on platform →</a>
+        <div class="card-platform">Edit</div>
+        <div class="card-title">Destroy Lonely La Final Part</div>
       </div>
     </div>
 
     <div class="video-card">
       <div class="card-glow"></div>
       <div class="video-wrapper">
-        <div class="video-placeholder">
-          <div class="play-icon"></div>
-          <div class="placeholder-label">Add your video here</div>
-        </div>
+        <video controls>
+          <source src="Or What.mp4" type="video/mp4">
+        </video>
       </div>
       <div class="card-info">
-        <div class="card-platform">TikTok / YouTube / IG</div>
-        <div class="card-title">Edit Title Here</div>
-        <a class="card-link" href="#">Watch on platform →</a>
+        <div class="card-platform">Edit</div>
+        <div class="card-title">Or What</div>
       </div>
     </div>
 
   </div>
 </section>
-
-<div class="add-section">
-  <div class="add-label">// How to add your videos</div>
-  <div class="add-sub">
-    For YouTube: go to your video → Share → Embed → copy the iframe code → paste it inside the <code>.video-wrapper</code> div, replacing the placeholder div.<br><br>
-    For TikTok: go to your video on desktop → Share → Embed → copy the iframe → paste same way.<br><br>
-    Change <code>Edit Title Here</code> to your edit name and update the <code>href="#"</code> link to your video URL.
-  </div>
-</div>
 
 <footer>
   <span>© 2026 BLESSXEN — All Rights Reserved</span>
