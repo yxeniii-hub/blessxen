@@ -8,6 +8,8 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   :root{--bg:#080808;--surface:#0f0f0f;--surface2:#161616;--accent:#7B2FBE;--accent-glow:#9B4DDD;--accent-soft:#C084FC;--text:#f0f0f0;--muted:#666;--border:#1e1e1e;}
   body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;min-height:100vh;overflow-x:hidden;}
+  canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+  .noise{position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:998;opacity:0.4;}
   nav{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(8,8,8,0.95);backdrop-filter:blur(10px);z-index:100;}
   .logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:4px;color:var(--accent-soft);text-shadow:0 0 18px #7B2FBE99,0 0 40px #7B2FBE44;text-decoration:none;}
   .nav-links{display:flex;gap:2rem;align-items:center;}
@@ -15,12 +17,12 @@
   .nav-links a:hover{color:var(--accent-soft);}
   .back-btn{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent-soft);text-decoration:none;border:1px solid var(--accent);padding:0.4rem 1rem;transition:all 0.2s;}
   .back-btn:hover{background:var(--accent);color:#fff;}
-  .hero{padding:4rem 2rem 2rem;}
+  .hero{padding:4rem 2rem 2rem;position:relative;z-index:1;}
   .hero-eyebrow{font-size:0.6rem;letter-spacing:5px;text-transform:uppercase;color:var(--accent-soft);margin-bottom:1rem;}
   .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,10vw,7rem);line-height:0.9;letter-spacing:2px;}
   .hero-title span{color:var(--accent-soft);text-shadow:0 0 24px #7B2FBEcc,0 0 60px #7B2FBE66;}
   .hero-sub{font-size:0.6rem;letter-spacing:2px;color:var(--muted);margin-top:1.5rem;line-height:1.8;}
-  .section{padding:2rem 2rem 5rem;}
+  .section{padding:2rem 2rem 5rem;position:relative;z-index:1;}
   .section-label{font-size:0.55rem;letter-spacing:5px;text-transform:uppercase;color:var(--accent-soft);margin-bottom:2rem;display:flex;align-items:center;gap:1rem;}
   .section-label::after{content:'';flex:1;height:1px;background:var(--border);max-width:60px;}
   .video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
@@ -33,7 +35,7 @@
   .card-info{padding:1rem 1.2rem;border-top:1px solid var(--border);}
   .card-platform{font-size:0.5rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent-soft);margin-bottom:0.4rem;}
   .card-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;color:var(--text);}
-  footer{padding:1.5rem 2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+  footer{padding:1.5rem 2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;position:relative;z-index:1;}
   footer span{font-size:0.55rem;letter-spacing:2px;color:var(--muted);}
   @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
   .hero-eyebrow,.hero-title,.hero-sub{animation:fadeUp 0.6s ease both;}
@@ -41,6 +43,10 @@
 </style>
 </head>
 <body>
+
+<canvas id="particles"></canvas>
+<div class="noise"></div>
+
 <nav>
   <a class="logo" href="index.html">BLESSXEN</a>
   <div class="nav-links">
@@ -106,5 +112,39 @@
   <span>© 2026 BLESSXEN — All Rights Reserved</span>
   <span>New York — Available Worldwide</span>
 </footer>
+
+<script>
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+  const particles = Array.from({length: 60}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5 + 0.5,
+    dx: (Math.random() - 0.5) * 0.4,
+    dy: (Math.random() - 0.5) * 0.4,
+    o: Math.random() * 0.4 + 0.1
+  }));
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(192, 132, 252, ${p.o})`;
+      ctx.fill();
+      p.x += p.dx;
+      p.y += p.dy;
+      if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+    });
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+</script>
 </body>
 </html>
