@@ -49,12 +49,6 @@
   .btn-primary:hover{background:var(--accent-glow);box-shadow:0 0 30px #9B4DDD99;transform:translateY(-2px);}
   .btn-ghost{background:transparent;color:var(--text);font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;padding:0.8rem 1.8rem;border:1px solid var(--border);cursor:none;transition:all 0.3s;text-decoration:none;display:inline-block;}
   .btn-ghost:hover{border-color:var(--accent-soft);color:var(--accent-soft);transform:translateY(-2px);box-shadow:0 0 20px #7B2FBE33;}
-  .marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:0.8rem 0;overflow:hidden;background:var(--surface);position:relative;z-index:1;}
-  .marquee-track{display:flex;gap:3rem;white-space:nowrap;animation:marquee 18s linear infinite;}
-  .marquee-track:hover{animation-play-state:paused;}
-  .marquee-track span{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:4px;color:var(--muted);flex-shrink:0;}
-  .marquee-track span.accent{color:var(--accent-soft);text-shadow:0 0 10px #7B2FBE88;}
-  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   .section{padding:5rem 2rem;position:relative;z-index:1;}
   .section-label{font-size:0.55rem;letter-spacing:5px;text-transform:uppercase;color:var(--accent-soft);margin-bottom:3rem;display:flex;align-items:center;gap:1rem;}
   .section-label::after{content:'';flex:1;height:1px;background:var(--border);max-width:60px;}
@@ -149,21 +143,6 @@
     <a href="work.html" class="btn-ghost">View work</a>
   </div>
 </section>
-
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span>After Effects</span><span class="accent">✦</span>
-    <span>Short-Form Video</span><span class="accent">✦</span>
-    <span>Underground Edits</span><span class="accent">✦</span>
-    <span>Motion Graphics</span><span class="accent">✦</span>
-    <span>Intros & Outros</span><span class="accent">✦</span>
-    <span>After Effects</span><span class="accent">✦</span>
-    <span>Short-Form Video</span><span class="accent">✦</span>
-    <span>Underground Edits</span><span class="accent">✦</span>
-    <span>Motion Graphics</span><span class="accent">✦</span>
-    <span>Intros & Outros</span><span class="accent">✦</span>
-  </div>
-</div>
 
 <section class="section fade-in" id="services">
   <div class="section-label">Services</div>
