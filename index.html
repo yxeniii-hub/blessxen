@@ -39,10 +39,10 @@
   .mobile-menu.open{display:flex;}
   .mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:4px;color:var(--muted);text-decoration:none;transition:color 0.2s;}
   .mobile-menu a:hover{color:var(--accent-soft);}
-  .hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:4rem 2rem 2rem;position:relative;overflow:hidden;z-index:1;}
+  .hero{min-height:60vh;display:flex;flex-direction:column;justify-content:center;padding:4rem 2rem 3rem;position:relative;overflow:hidden;z-index:1;}
   .hero-eyebrow{font-size:0.6rem;letter-spacing:5px;text-transform:uppercase;color:var(--accent-soft);margin-bottom:1.5rem;min-height:1.2em;}
-  .hero-sub{font-size:0.7rem;letter-spacing:2px;color:var(--muted);margin-top:2rem;max-width:380px;line-height:1.8;opacity:0;animation:fadeUp 0.6s ease 1s forwards;}
-  .hero-cta{margin-top:2.5rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;opacity:0;animation:fadeUp 0.6s ease 1.2s forwards;}
+  .hero-sub{font-size:0.7rem;letter-spacing:2px;color:var(--muted);max-width:380px;line-height:1.8;opacity:0;animation:fadeUp 0.6s ease 0.5s forwards;}
+  .hero-cta{margin-top:2.5rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;opacity:0;animation:fadeUp 0.6s ease 0.7s forwards;}
   .btn-primary{background:var(--accent);color:#fff;font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;padding:0.8rem 1.8rem;border:none;cursor:none;font-weight:700;transition:all 0.3s;box-shadow:0 0 20px #7B2FBE66;text-decoration:none;display:inline-block;position:relative;overflow:hidden;}
   .btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(45deg,transparent,rgba(255,255,255,0.1),transparent);transform:translateX(-100%);transition:transform 0.4s;}
   .btn-primary:hover::before{transform:translateX(100%);}
@@ -262,7 +262,7 @@
       setTimeout(typeEyebrow, 50);
     }
   }
-  setTimeout(typeEyebrow, 800);
+  setTimeout(typeEyebrow, 400);
 
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', e => {
